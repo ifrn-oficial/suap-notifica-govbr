@@ -81,6 +81,28 @@ class NotificationsAPIClient(BaseAPIClient):
             '/v2/notifications/email',
             data=notification)
 
+    def send_email_cpf_notification(
+        self,
+        cpf,
+        template_id,
+        personalisation=None,
+        reference=None,
+        email_reply_to_id=None
+    ):
+        notification = {
+            "cpf": cpf,
+            "template_id": template_id
+        }
+        if personalisation:
+            notification.update({'personalisation': personalisation})
+        if reference:
+            notification.update({'reference': reference})
+        if email_reply_to_id:
+            notification.update({'email_reply_to_id': email_reply_to_id})
+        return self.post(
+            '/v2/notifications/email_CPF',
+            data=notification)
+
     def send_letter_notification(self, template_id, personalisation, reference=None):
         notification = {
             "template_id": template_id,

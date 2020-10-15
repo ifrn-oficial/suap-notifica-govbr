@@ -369,6 +369,134 @@ def test_create_email_notification_with_csv_file_upload(notifications_client, rm
     }
 
 
+def test_create_email_cpf_notification(notifications_client, rmock):
+    endpoint = "{0}/v2/notifications/email_CPF".format(TEST_HOST)
+    rmock.request(
+        "POST",
+        endpoint,
+        json={"status": "success"},
+        status_code=200)
+
+    notifications_client.send_email_cpf_notification(
+        cpf="99999999999", template_id="456")
+
+    assert rmock.last_request.json() == {
+        'template_id': '456', 'cpf': '99999999999'
+    }
+
+
+def test_create_email_cpf_notification_with_email_reply_to_id(notifications_client, rmock):
+    endpoint = "{0}/v2/notifications/email_CPF".format(TEST_HOST)
+    rmock.request(
+        "POST",
+        endpoint,
+        json={"status": "success"},
+        status_code=200)
+
+    notifications_client.send_email_cpf_notification(
+        cpf="99999999999", template_id="456", email_reply_to_id="789")
+
+    assert rmock.last_request.json() == {
+        'template_id': '456', 'cpf': '99999999999', 'email_reply_to_id': '789'
+    }
+
+
+def test_create_email_cpf_notification_with_personalisation(notifications_client, rmock):
+    endpoint = "{0}/v2/notifications/email_CPF".format(TEST_HOST)
+    rmock.request(
+        "POST",
+        endpoint,
+        json={"status": "success"},
+        status_code=200)
+
+    notifications_client.send_email_cpf_notification(
+        cpf="99999999999", template_id="456", personalisation={'name': 'chris'}
+    )
+
+    assert rmock.last_request.json() == {
+        'template_id': '456', 'cpf': '99999999999', 'personalisation': {'name': 'chris'}
+    }
+
+
+def test_create_email_cpf_notification_with_document_stream_upload(notifications_client, rmock):
+    endpoint = "{0}/v2/notifications/email_CPF".format(TEST_HOST)
+    rmock.request(
+        "POST",
+        endpoint,
+        json={"status": "success"},
+        status_code=200)
+
+    if hasattr(io, 'BytesIO'):
+        mock_file = io.BytesIO(b'file-contents')
+    else:
+        mock_file = io.StringIO('file-contents')
+
+    notifications_client.send_email_cpf_notification(
+        cpf="99999999999", template_id="456", personalisation={
+            'name': 'chris',
+            'doc': prepare_upload(mock_file)
+        }
+    )
+
+    assert rmock.last_request.json() == {
+        'template_id': '456', 'cpf': '99999999999',
+        'personalisation': {
+            'name': 'chris',
+            'doc': {'file': 'ZmlsZS1jb250ZW50cw==', 'is_csv': False}
+        }
+    }
+
+
+def test_create_email_cpf_notification_with_document_file_upload(notifications_client, rmock):
+    endpoint = "{0}/v2/notifications/email_CPF".format(TEST_HOST)
+    rmock.request(
+        "POST",
+        endpoint,
+        json={"status": "success"},
+        status_code=200)
+
+    with open('tests/test_files/test.pdf', 'rb') as f:
+        notifications_client.send_email_cpf_notification(
+            cpf="99999999999", template_id="456", personalisation={
+                'name': 'chris',
+                'doc': prepare_upload(f)
+            }
+        )
+
+    assert rmock.last_request.json() == {
+        'template_id': '456', 'cpf': '99999999999',
+        'personalisation': {
+            'name': 'chris',
+            'doc': {'file': 'JVBERi0xLjUgdGVzdAo=', 'is_csv': False}
+        }
+    }
+
+
+def test_create_email_cpf_notification_with_csv_file_upload(notifications_client, rmock):
+    endpoint = "{0}/v2/notifications/email_CPF".format(TEST_HOST)
+    rmock.request(
+        "POST",
+        endpoint,
+        json={"status": "success"},
+        status_code=200)
+
+    with open('tests/test_files/test.csv', 'rb') as f:
+        notifications_client.send_email_cpf_notification(
+            cpf="99999999999", template_id="456", personalisation={
+                'name': 'chris',
+                'doc': prepare_upload(f, is_csv=True)
+            }
+        )
+
+    assert rmock.last_request.json() == {
+        'template_id': '456', 'cpf': '99999999999',
+        'personalisation': {
+            'name': 'chris',
+            'doc': {'file': 'VGhpcyBpcyBhIGNzdiwK', 'is_csv': True}
+        }
+    }
+
+
 def test_create_letter_notification(notifications_client, rmock):
     endpoint = "{0}/v2/notifications/letter".format(TEST_HOST)
     rmock.request(
