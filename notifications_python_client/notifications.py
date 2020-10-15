@@ -37,6 +37,28 @@ class NotificationsAPIClient(BaseAPIClient):
             '/v2/notifications/sms',
             data=notification)
 
+    def send_sms_cpf_notification(
+        self,
+        cpf,
+        template_id,
+        personalisation=None,
+        reference=None,
+        sms_sender_id=None
+    ):
+        notification = {
+            "cpf": cpf,
+            "template_id": template_id
+        }
+        if personalisation:
+            notification.update({'personalisation': personalisation})
+        if reference:
+            notification.update({'reference': reference})
+        if sms_sender_id:
+            notification.update({'sms_sender_id': sms_sender_id})
+        return self.post(
+            '/v2/notifications/sms_CPF',
+            data=notification)
+
     def send_email_notification(
         self,
         email_address,

@@ -23,7 +23,7 @@ class BaseAPIClient(object):
     def __init__(
             self,
             api_key,
-            base_url='https://api.notifications.service.gov.uk'
+            base_url='https://api.notificacao.hom.servicos.gov.br'
     ):
         """
         Initialise the client
