@@ -56,7 +56,7 @@ class NotificationsAPIClient(BaseAPIClient):
         if sms_sender_id:
             notification.update({'sms_sender_id': sms_sender_id})
         return self.post(
-            '/v2/notifications/sms_CPF',
+            '/v2/notifications/sms-cpf',
             data=notification)
 
     def send_email_notification(
@@ -100,7 +100,7 @@ class NotificationsAPIClient(BaseAPIClient):
         if email_reply_to_id:
             notification.update({'email_reply_to_id': email_reply_to_id})
         return self.post(
-            '/v2/notifications/email_CPF',
+            '/v2/notifications/email-cpf',
             data=notification)
 
     def send_app_govbr_cpf_notification(
@@ -122,7 +122,7 @@ class NotificationsAPIClient(BaseAPIClient):
         if sms_sender_id:
             notification.update({'sms_sender_id': sms_sender_id})
         return self.post(
-            '/v2/notifications/govbr_CPF',
+            '/v2/notifications/govbrcpf',
             data=notification)
 
     def send_letter_notification(self, template_id, personalisation, reference=None):
