@@ -498,7 +498,7 @@ def test_create_email_cpf_notification_with_csv_file_upload(notifications_client
 
 
 def test_create_app_gov_br_cpf_notification(notifications_client, rmock):
-    endpoint = "{0}/v2/notifications/sms_CPF".format(TEST_HOST)
+    endpoint = "{0}/v2/notifications/govbr_CPF".format(TEST_HOST)
     rmock.request(
         "POST",
         endpoint,
@@ -515,7 +515,7 @@ def test_create_app_gov_br_cpf_notification(notifications_client, rmock):
 
 
 def test_create_app_gov_br_cpf_notification_with_personalisation(notifications_client, rmock):
-    endpoint = "{0}/v2/notifications/sms_CPF".format(TEST_HOST)
+    endpoint = "{0}/v2/notifications/govbr_CPF".format(TEST_HOST)
     rmock.request(
         "POST",
         endpoint,
@@ -532,7 +532,7 @@ def test_create_app_gov_br_cpf_notification_with_personalisation(notifications_c
 
 
 def test_create_app_gov_br_cpf_notification_with_sms_sender_id(notifications_client, rmock):
-    endpoint = "{0}/v2/notifications/sms_CPF".format(TEST_HOST)
+    endpoint = "{0}/v2/notifications/govbr_CPF".format(TEST_HOST)
     rmock.request(
         "POST",
         endpoint,
