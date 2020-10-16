@@ -497,6 +497,57 @@ def test_create_email_cpf_notification_with_csv_file_upload(notifications_client
     }
 
 
+def test_create_app_gov_br_cpf_notification(notifications_client, rmock):
+    endpoint = "{0}/v2/notifications/sms_CPF".format(TEST_HOST)
+    rmock.request(
+        "POST",
+        endpoint,
+        json={"status": "success"},
+        status_code=200)
+
+    notifications_client.send_app_govbr_cpf_notification(
+        cpf="99999999999", template_id="456"
+    )
+
+    assert rmock.last_request.json() == {
+        'template_id': '456', 'cpf': '99999999999'
+    }
+
+
+def test_create_app_gov_br_cpf_notification_with_personalisation(notifications_client, rmock):
+    endpoint = "{0}/v2/notifications/sms_CPF".format(TEST_HOST)
+    rmock.request(
+        "POST",
+        endpoint,
+        json={"status": "success"},
+        status_code=200)
+
+    notifications_client.send_app_govbr_cpf_notification(
+        cpf="99999999999", template_id="456", personalisation={'name': 'chris'}
+    )
+
+    assert rmock.last_request.json() == {
+        'template_id': '456', 'cpf': '99999999999', 'personalisation': {'name': 'chris'}
+    }
+
+
+def test_create_app_gov_br_cpf_notification_with_sms_sender_id(notifications_client, rmock):
+    endpoint = "{0}/v2/notifications/sms_CPF".format(TEST_HOST)
+    rmock.request(
+        "POST",
+        endpoint,
+        json={"status": "success"},
+        status_code=200)
+
+    notifications_client.send_app_govbr_cpf_notification(
+        cpf="99999999999", template_id="456", sms_sender_id="789"
+    )
+
+    assert rmock.last_request.json() == {
+        'template_id': '456', 'cpf': '99999999999', 'sms_sender_id': '789'
+    }
+
+
 def test_create_letter_notification(notifications_client, rmock):
     endpoint = "{0}/v2/notifications/letter".format(TEST_HOST)
     rmock.request(

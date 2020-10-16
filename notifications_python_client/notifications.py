@@ -81,7 +81,7 @@ class NotificationsAPIClient(BaseAPIClient):
             '/v2/notifications/email',
             data=notification)
 
-    def send_email_cpf_notification(
+    def send_app_govbr_cpf_notification(
         self,
         cpf,
         template_id,
@@ -100,7 +100,7 @@ class NotificationsAPIClient(BaseAPIClient):
         if email_reply_to_id:
             notification.update({'email_reply_to_id': email_reply_to_id})
         return self.post(
-            '/v2/notifications/email_CPF',
+            '/v2/notifications/govbr_CPF',
             data=notification)
 
     def send_letter_notification(self, template_id, personalisation, reference=None):
