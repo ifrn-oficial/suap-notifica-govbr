@@ -10,6 +10,7 @@ import json
 
 from monotonic import monotonic
 import requests
+import os
 
 from notifications_python_client import __version__
 from notifications_python_client.errors import HTTPError, InvalidResponse
@@ -20,10 +21,13 @@ logger = logging.getLogger(__name__)
 
 
 class BaseAPIClient(object):
+    """
+    URL da API define a env var - export API_NOTIFICA_BASE_URL=https://api.notificacao.hom.servicos.gov.br
+    """
     def __init__(
             self,
             api_key,
-            base_url='https://api.notificacao.hom.servicos.gov.br'
+            base_url=os.getenv('API_NOTIFICA_BASE_URL', 'https://notificacao.servicos.gov.br')
     ):
         """
         Initialise the client
