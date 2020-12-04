@@ -27,7 +27,7 @@ class BaseAPIClient(object):
     def __init__(
             self,
             api_key,
-            base_url=os.getenv('API_NOTIFICA_BASE_URL', 'https://notificacao.servicos.gov.br')
+            base_url=os.getenv('API_NOTIFICA_BASE_URL', 'https://api.notificacao.servicos.gov.br')
     ):
         """
         Initialise the client
