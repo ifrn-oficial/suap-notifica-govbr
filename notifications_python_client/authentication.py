@@ -55,7 +55,13 @@ def create_jwt_token(secret, client_id):
         'iat': epoch_seconds()
     }
 
-    return jwt.encode(payload=claims, key=secret, headers=headers).decode()
+    t = jwt.encode(payload=claims, key=secret, headers=headers)
+    if isinstance(t, str):
+        return t
+    else:
+        return t.decode()
+
+
 
 
 def get_token_issuer(token):
