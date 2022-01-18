@@ -33,12 +33,12 @@ class IntegrationTestCommand(TestCommand):
 
 
 setup(
-    name='notifications-python-client',
+    name='suap-notifica-govbr',
     version=version,
-    url='https://github.com/alphagov/notifications-python-client',
+    url='https://github.com/ifrn-oficial/suap-notifica-govbr',
     license='MIT',
-    author='Government Digital Service',
-    description='Python API client for GOV.UK Notify.',
+    author='IFRN',
+    description='Python API client for Notifica GOV.BR.',
     long_description=__doc__,
     classifiers=[
         'Intended Audience :: Developers',
@@ -49,7 +49,7 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
     ],
-    keywords='gds govuk notify',
+    keywords='gds govbr notifica',
 
     packages=find_packages(),
     include_package_data=True,
